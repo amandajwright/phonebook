@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+</head>
+
+
+
+<body>
+
+  <h2> find a business </h2>
+
+  <div id="search_type_choice">
+    <p>Would you like to search by business category or business name?</p>
+
+
+    <button id="name_button"> name </button>
+    <button id="category_button"> category </button>
+
+
+    <div id="name-search-form" {% if do_not_hide_name %} class="do_not_hide" {% endif %}>
+      <form method="post" action="/business">
+        <label for="name">Name:</label>
+        <input id="name" name="name">
+        <label for="postcode ">Postcode:</label>
+        <input id="name_postcode" name="postcode">
+        <input type="submit" value="Submit" name="submit" id="name-submit-button">
+      </form>
+    </div>
+
+    <div id="category-search-form" {% if do_not_hide_category %} class="do_not_hide" {% endif %}>
+      <form method="post" action="/business">
+        <label for="category">Type:</label>
+        <input id="category" name="category">
+        <label for="postcode ">Postcode:</label>
+        <input id="business_postcode" name="postcode">
+        <input type="submit" value="Submit" name="submit" id="submit-button">
+      </form>
+    </div>
+
+    {{result}}
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="static/js/engine.js"></script>
+</body>
+
+
+
+</html>
