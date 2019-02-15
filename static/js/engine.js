@@ -1,59 +1,79 @@
-$('#category-search-form').hide();
-$('#name-search-form').hide();
-$('#person_search').hide();
-$('#business_search').hide();
+$("#person_search").hide();
+$("#business_search_btns").hide();
+$("#business_name_search").hide();
+$("#business_category_search").hide();
 $(".results").hide();
 
-$('.do_not_hide').show();
+$(".do_not_hide").show();
 
-$("#person_button").click(function(event) {
-  $("#person_search").show();
-  $("#business_search").hide();
-});
-
-$("#business_button").click(function(event) {
-  $("#business_search").show();
-  $("#person_search").hide();
-  });
-
-
-$("#name_button").click(function(event) {
-  $("#name-search-form").show();
-  $("#category-search-form").hide();
-  });
-
-$("#category_button").click(function(event) {
-  $("#category-search-form").show();
-  $("#name-search-form").hide();
-  });
-
-function ScrollToPersonSearch() {
+function scrollToPersonSearch() {
 var elmnt = document.getElementById("person_search");
 elmnt.scrollIntoView();
 }
 
-function ScrollToBusinessSearch() {
-var elmnt = document.getElementById("business_search");
+function scrollToBusinessSearchBtns() {
+var elmnt = document.getElementById("business_search_btns");
 elmnt.scrollIntoView();
 }
 
-
-$(".move-area").mousemove(function(event) {
-  var eye = $(".eye");
-  var x = (eye.offset().left) + (eye.width() / 2);
-  var y = (eye.offset().top) + (eye.height() / 2);
-  var rad = Math.atan2(event.pageX - x, event.pageY - y);
-  var rot = (rad * (180 / Math.PI) * -1) + 180;
-  eye.css({
-    '-webkit-transform': 'rotate(' + rot + 'deg)',
-    '-moz-transform': 'rotate(' + rot + 'deg)',
-    '-ms-transform': 'rotate(' + rot + 'deg)',
-    'transform': 'rotate(' + rot + 'deg)'
-  });
-});
-
-function SearchSummaryReveal() {
-  $(".results").show();
+function scrollToBusinessNameSearch() {
+var elmnt = document.getElementById("business_name_search");
+elmnt.scrollIntoView();
 }
 
-object.onsubmit = function(){SearchSummaryReveal};
+function scrollToBusinessCategorySearch() {
+var elmnt = document.getElementById("business_category_search");
+elmnt.scrollIntoView();
+}
+
+$("#search_by_person_btn").click(function(event) {
+  $("#person_search").show();
+  $("#business_search_btns").hide();
+  $("#business_name_search").hide();
+  $("#business_category_search").hide();
+  scrollToPersonSearch()
+});
+
+$("#search_by_business_btn").click(function(event) {
+  $("#business_search_btns").show();
+  $("#person_search").hide();
+  scrollToBusinessSearchBtns()
+  });
+
+$("#search_by_biz_name_btn").click(function(event) {
+  $("#business_name_search").show();
+  $("#business_category_search").hide();
+  scrollToBusinessNameSearch();
+  });
+
+$("#search_by_biz_category_btn").click(function(event) {
+  $("#business_category_search").show();
+  $("#business_name_search").hide();
+  scrollToBusinessCategorySearch();
+  });
+
+$("#switch_to_biz_category_search").click(function(event) {
+  $("#business_category_search").show();
+  $("#business_name_search").hide();
+  $("#business_name_search_results").hide();
+  scrollToBusinessCategorySearch();
+  });
+
+$("#switch_to_biz_name_search").click(function(event) {
+  $("#business_name_search").show();
+  $("#business_category_search").hide();
+  $("#business_category_search_results").hide();
+  scrollToBusinessNameSearch();
+  });
+
+// function ScrollToPersonResults() {
+// var elmnt = document.getElementById("person_search_results");
+// elmnt.scrollIntoView();
+// }
+//
+// function SearchSummaryReveal() {
+//   $(".results").show();
+//   ScrollToPersonResults();
+// }
+//
+// object.onsubmit = function(){SearchSummaryReveal};

@@ -5,177 +5,258 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/custom.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}"> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
+  <main>
 
-  <main class="container text-center">
-    <h2>Looking for someone/thing? </h2>
+    <nav id="brand_bar" class="navbar fixed-top">
+      <a href="#main_search">
+        The Phonebook
+      </a>
+    </nav><!-- /#brand_bar -->
 
-    <div class="row">
+    <div id="main_search">
+      <div class="container text-center">
 
-      <div class="col-md-4">
-        <button class="btn btn-primary btn-xl" id="person_button" onclick="ScrollToPersonSearch()">find a person</button>
-      </div>
-      <section class="move-area col-md-4">
-        <div class='.container'>
-          <div class='eye'></div>
-          <div class='eye'></div>
-        </div>
-      </section>
-      <div class="col-md-4">
-        <button class="btn btn-primary btn-xl" id="business_button" onclick="ScrollToBusinessSearch()"> find a business </button>
-      </div>
+        <h1>What would you like to do? </h1>
 
-    </div><!-- /.row -->
+
+        <div class="row">
+
+          <div class="col-md-4 offset-md-1">
+            <button class="btn btn-primary btn-xl" id="search_by_person_btn">search by person</button>
+          </div>
+
+          <div class="col-md-4 offset-md-2">
+            <button class="btn btn-primary btn-xl" id="search_by_business_btn">search by business</button>
+          </div>
+
+        </div><!-- /.row -->
+
+      </div><!-- /.container (main_search) -->
+
+    </div><!-- /#main_search -->
 
     <div id="person_search" {% if do_not_hide_surname %} class="do_not_hide" {% endif %}>
-      <h2> Who are you looking for? </h2>
 
-      <div id="contact-form">
-        <form method="post" action="/#person_search" onsubmit="SearchSummaryReveal">
-          <label for="surname">Name:</label>
-          <input class="form-control-lg" id="surname" name="surname" required="required">
-          <label for="postcode ">Postcode:</label>
-          <input class="form-control-lg" id="postcode" name="postcode" required="required">
-          <input type="submit" value="Submit" name="submit" id="submit-button">
-        </form>
-        <div {% if do_not_hide_surname %} class="do_not_hide" {% else %} class="results" {% endif %} id="ResultsPerson">
-          <p>You searched for: {{surname}} in {{postcode}}.</p>
-          {% if "Sorry" in result %}
-          <p>Your search does not exist in our database. Exterminate.</p>
-          {% else %}
-          <!--{{result}}-->
-        <div class="container col-md-12 text-center">
+      <div class="container text-center">
+
+        <h1> Who are you looking for? </h1>
+
+        <div id="person_search_form">
+          <form method="post" action="/#person_search_results">
+            <label for="surname">Name:</label>
+            <input class="form-control-lg" id="surname" name="surname" required="required">
+            <label for="postcode ">Postcode:</label>
+            <input class="form-control-lg" id="postcode" name="postcode" required="required">
+            <input type="submit" value="Submit" name="submit" class="submit-button">
+          </form>
+        </div><!-- /#person_search_form -->
+
+      </div><!-- /.container -->
+
+    </div><!-- /#person_search -->
+
+    <div id="person_search_results">
+
+      <div {% if do_not_hide_surname %} class="do_not_hide" {% else %} class="results" {% endif %} id="ResultsPerson">
+
+        <div id="person_search_reminder">
+          <div class="container text-center">
+            <p>You searched for: <span>{{surname}}</span> in <span>{{postcode}}</span>.</p>
+          </div><!-- /.container -->
+        </div><!-- /#search_reminder -->
+
+        <div id="person_results_list">
+          <div class="container text-center">
+
+            {% if "Sorry" in result %}
+            <p>Your search does not exist in our database. Exterminate.</p>
+            {% else %}
             <table>
-            <tr>
-              <th>Surname</th>
-              <th>Firstname</th>
-              <th>Address</th>
-              <th>Town/City</th>
-              <th>Postcode</th>
-              <th>Telephone</th>
-              <th>Distance</th>
-            </tr>
-            {% for item in result %}
-            <tr>
-              <td>{{ item["surname"] }}</td>
-              <td>{{ item["first_name"] }}</td>
-              <td>{{ item["street"] }}</td>
-              <td>{{ item["town"] }}</td>
-              <td>{{ item["postcode"] }}</td>
-              <td>{{ item["tel_number"] }}</td>
-              <td>{{ item["distance"] }}</td>
-            </tr>
-            {% endfor %}
-          </table>
-        </div> <!-- /table -->
-          {% endif %}
-        </div><!-- /.results -->
+              <tr>
+                <th>Surname</th>
+                <th>Firstname</th>
+                <th>Address</th>
+                <th>Town/City</th>
+                <th>Postcode</th>
+                <th>Telephone</th>
+                <th>Distance</th>
+              </tr>
+              {% for item in result %}
+              <tr>
+                <td>{{ item["surname"] }}</td>
+                <td>{{ item["first_name"] }}</td>
+                <td>{{ item["street"] }}</td>
+                <td>{{ item["town"] }}</td>
+                <td>{{ item["postcode"] }}</td>
+                <td>{{ item["tel_number"] }}</td>
+                <td>{{ item["distance"] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            {% endif %}
+          </div> <!-- /.container -->
+        </div><!-- /#person_results_list -->
 
-      </div> <!-- /#contact-form -->
-    </div> <!-- #.person_search -->
+      </div><!-- /.results -->
 
+    </div><!-- /#person_search_results -->
 
+    <div id="business_search_btns" {% if do_not_hide_buttons %} class="do_not_hide" {% endif %}>
+      <div class="container text-center">
 
-    <div id="business_search" {% if do_not_hide_buttons %} class="do_not_hide" {% endif %}>
-      <h2> What are you looking for? </h2>
+        <h1> How would you like to search? </h1>
 
-      <div id="search_type_choice">
+        <div class="row">
 
-        <button class="btn btn-primary btn-xl" id="name_button"> business name </button>
-        <button class="btn btn-primary btn-xl" id="category_button"> business type </button>
-      </div><!-- /#search_type_choice -->
+          <div class="col-md-4 offset-md-1">
+            <button class="btn btn-primary btn-xl" id="search_by_biz_name_btn"> by business name </button>
+          </div>
 
+          <div class="col-md-4 offset-md-2">
+            <button class="btn btn-primary btn-xl" id="search_by_biz_category_btn"> by business category </button>
+          </div>
+        </div><!-- /.row -->
 
-      <div id="name-search-form" {% if do_not_hide_name %} class="do_not_hide" {% endif %}>
-        <form method="post" action="/#business_search">
-          <label for="name">Name:</label>
-          <input class="form-control-lg" id="name" name="name" required="required">
-          <label for="postcode ">Postcode:</label>
-          <input class="form-control-lg" id="name_postcode" name="postcode" required="required">
-          <input type="submit" value="Submit" name="submit" id="name-submit-button">
-        </form>
-        <div {% if do_not_hide_name %} class="do_not_hide" {% else %} class="results" {% endif %}>
-          <p>You searched for: {{name}} in {{postcode}}.</p>
-          {% if "Sorry" in result %}
-          <p>Your search does not exist in our database. Exterminate.</p>
-          {% else %}
-          <!--{{result}}-->
-          <table class="centered thick-border">
-            <tr>
-              <th>Business Name</th>
-              <th>Category</th>
-              <th>Address</th>
-              <th>Town/City</th>
-              <th>Postcode</th>
-              <th>Telephone</th>
-              <th>Distance</th>
-            </tr>
-            {% for item in result %}
-            <tr>
-              <td>{{ item["name"] }}</td>
-              <td>{{ item["category"] }}</td>
-              <td>{{ item["street"] }}</td>
-              <td>{{ item["town"] }}</td>
-              <td>{{ item["postcode"] }}</td>
-              <td>{{ item["tel_number"] }}</td>
-              <td>{{ item["distance"] }}</td>
-            </tr>
-            {% endfor %}
-          </table>
-          {% endif %}
-        </div><!-- /.results -->
+      </div><!-- /.container -->
 
-      </div><!-- /#name-search-form -->
+    </div><!-- /#business_search_btns -->
 
-      <div id="category-search-form" {% if do_not_hide_category %} class="do_not_hide" {% endif %}>
-        <form method="post" action="/#business_search">
-          <label for="category">Type:</label>
-          <input class="form-control-lg" id="category" name="category" required="required">
-          <label for="postcode ">Postcode:</label>
-          <input class="form-control-lg" id="business_postcode" name="postcode" required="required">
-          <input type="submit" value="Submit" name="submit" id="submit-button">
-        </form>
-        <div {% if do_not_hide_category %} class="do_not_hide" {% else %} class="results" {% endif %}>
-          <p>You searched for: {{business_category}} in {{postcode}}.</p>
-          {% if "Sorry" in result %}
-          <p>Your search does not exist in our database. Exterminate.</p>
-          {% else %}
-          <!--{{result}}-->
-          <table class="centered thick-border">
-            <tr>
-              <th>Business Name</th>
-              <th>Category</th>
-              <th>Address</th>
-              <th>Town/City</th>
-              <th>Postcode</th>
-              <th>Telephone</th>
-              <th>Distance</th>
-            </tr>
-            {% for item in result %}
-            <tr>
-              <td>{{ item["name"] }}</td>
-              <td>{{ item["category"] }}</td>
-              <td>{{ item["street"] }}</td>
-              <td>{{ item["town"] }}</td>
-              <td>{{ item["postcode"] }}</td>
-              <td>{{ item["tel_number"] }}</td>
-              <td>{{ item["distance"] }}</td>
-            </tr>
-            {% endfor %}
-          </table>
-          {% endif %}
-        </div><!-- /.results -->
+    <div id="business_name_search" {% if do_not_hide_name %} class="do_not_hide" {% endif %}>
 
-      </div><!-- /#category-search-form -->
+      <div class="container text-center">
 
-    </div><!-- #.business_search -->
+        <div id="business_name_search_form">
+          <form method="post" action="/#business_name_search_results">
+            <label for="name">Name:</label>
+            <input class="form-control-lg" id="name" name="name" required="required">
+            <label for="postcode ">Postcode:</label>
+            <input class="form-control-lg" id="name_postcode" name="postcode" required="required">
+            <input type="submit" value="Submit" name="submit" class="submit-button">
+          </form>
+        </div><!-- /#business_name_search_form -->
+        <button id="switch_to_biz_category_search">Search by business category instead.</button>
+
+      </div><!-- /.container -->
+
+    </div><!-- /#business_name_search -->
+
+    <div id="business_name_search_results">
+
+      <div {% if do_not_hide_name %} class="do_not_hide" {% else %} class="results" {% endif %}>
+
+        <div id="business_name_search_reminder">
+          <div class="container text-center">
+            <p>You searched for: <span>{{name}}</span> in <span>{{postcode}}</span>.</p>
+          </div><!-- /.container -->
+        </div><!-- /#business_name_search_reminder -->
+        <div id="business_name_results_list">
+          <div class="container text-center">
+
+            {% if "Sorry" in result %}
+            <p>Your search does not exist in our database. Exterminate.</p>
+            {% else %}
+            <table>
+              <tr>
+                <th>Business Name</th>
+                <th>Category</th>
+                <th>Address</th>
+                <th>Town/City</th>
+                <th>Postcode</th>
+                <th>Telephone</th>
+                <th>Distance</th>
+              </tr>
+              {% for item in result %}
+              <tr>
+                <td>{{ item["name"] }}</td>
+                <td>{{ item["category"] }}</td>
+                <td>{{ item["street"] }}</td>
+                <td>{{ item["town"] }}</td>
+                <td>{{ item["postcode"] }}</td>
+                <td>{{ item["tel_number"] }}</td>
+                <td>{{ item["distance"] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            {% endif %}
+          </div> <!-- /.container -->
+        </div><!-- /#business_name_results_list -->
+
+      </div><!-- /.results -->
+
+    </div><!-- /#business_name_search_results -->
+
+    <div id="business_category_search" {% if do_not_hide_category %} class="do_not_hide" {% endif %}>
+
+      <div class="container text-center">
+
+        <div id="business_category_search_form">
+          <form method="post" action="/#business_category_search_results">
+            <label for="category">Category:</label>
+            <input class="form-control-lg" id="category" name="category" required="required">
+            <label for="postcode ">Postcode:</label>
+            <input class="form-control-lg" id="business_postcode" name="postcode" required="required">
+            <input type="submit" value="Submit" name="submit" class="submit-button">
+          </form>
+
+        </div><!-- /#business_category_search_form -->
+        <button id="switch_to_biz_name_search">Search by business name instead.</button>
+
+      </div><!-- /.container -->
+
+    </div><!-- /#business_category_search -->
+
+    <div id="business_category_search_results">
+
+      <div {% if do_not_hide_category %} class="do_not_hide" {% else %} class="results" {% endif %}>
+
+        <div id="business_category_search_reminder">
+          <div class="container text-center">
+            <p>You searched for: <span>{{business_category}}</span> in <span>{{postcode}}</span>.</p>
+          </div><!-- /.container -->
+        </div><!-- /#business_category_search_reminder -->
+
+        <div id="business_category_results_list">
+          <div class="container text-center">
+
+            {% if "Sorry" in result %}
+            <p>Your search does not exist in our database. Exterminate.</p>
+            {% else %}
+            <table>
+              <tr>
+                <th>Business Name</th>
+                <th>Category</th>
+                <th>Address</th>
+                <th>Town/City</th>
+                <th>Postcode</th>
+                <th>Telephone</th>
+                <th>Distance</th>
+              </tr>
+              {% for item in result %}
+              <tr>
+                <td>{{ item["name"] }}</td>
+                <td>{{ item["category"] }}</td>
+                <td>{{ item["street"] }}</td>
+                <td>{{ item["town"] }}</td>
+                <td>{{ item["postcode"] }}</td>
+                <td>{{ item["tel_number"] }}</td>
+                <td>{{ item["distance"] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            {% endif %}
+          </div> <!-- /.container -->
+        </div><!-- /#business_category_results_list -->
+
+      </div><!-- /.results -->
+
+    </div><!-- /#business_category_search_results -->
+
 
 
 

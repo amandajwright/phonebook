@@ -32,7 +32,7 @@ def business():
                       else: 
                             name = form_data["name"]
                             result = business_search_results(name, postcode, "name")
-                      do_not_hide_name = True
+                      do_not_hide_business_name = True
                       do_not_hide_buttons = True
                 else:
                       if form_data["category"] == '':
