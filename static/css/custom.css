@@ -11,29 +11,44 @@
   align-items: center;
 }
 
-#person_search {
-  background-color: #28a;
-  height: 55vh;
+#person_search, #business_name_search, #business_category_search {
+  height: 100vh;
   display: flex;
   align-items: center;
+}
+
+#person_search {
+  background-color: #28a;
+}
+
+#business_name_search, #business_category_search {
+  background-color: grey;
+}
+
+#person_search_reminder, #business_name_search_reminder, #business_category_search_reminder {
+  font-size: 1.6rem;
+  height: 20vh;
+  padding-top: 55px;
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
 #person_search_reminder {
   background-color: grey;
-  color: white;
-  font-size: 1.6rem;
-  height: 10vh;
-  display: flex;
-  align-items: center;
 }
 
-#person_search_reminder p {
+#business_name_search_reminder, #business_category_search_reminder {
+  background-color: #28a;
+}
+
+#person_search_reminder p, #business_name_search_reminder p, #business_category_search_reminder p {
   margin: 0px;
 }
 
-#person_results_list {
+#person_results_list, #business_name_results_list, #business_category_results_list {
   background-color: #fc2;
-  height: 35vh;
+  height: 80vh;
   display: flex;
   align-items: center;
 }
@@ -41,33 +56,6 @@
 #business_search_btns {
   background-color: #28a;
   height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-#business_name_search, #business_category_search {
-  background-color: grey;
-  height: 50vh;
-  display: flex;
-  align-items: center;
-}
-
-#business_name_search_reminder, #business_category_search_reminder {
-  background-color: white;
-  color: black;
-  font-size: 1.6rem;
-  height: 10vh;
-  display: flex;
-  align-items: center;
-}
-
-#business_name_search_reminder p, #business_category_search_reminder p {
-  margin: 0px;
-}
-
-#business_name_results_list, #business_category_results_list {
-  background-color: #fc2;
-  height: 40vh;
   display: flex;
   align-items: center;
 }
@@ -110,6 +98,7 @@ form {
 }
 
 #person_search_form, #business_name_search_form, #business_category_search_form {
+  color: black;
   font-size: 1.65rem;
 }
 
@@ -123,6 +112,13 @@ form {
   border-radius: .3rem;
 }
 
+#switch_to_biz_category_search, #switch_to_biz_name_search {
+  background-color: Transparent;
+  border: none;
+  font-size: 1.6rem;
+  margin: 20px;
+}
+
 span {
   font-style: italic;
 }
@@ -133,4 +129,8 @@ span {
 
 table {
   width: 100%;
+}
+
+th, td {
+  margin: 15px;
 }
